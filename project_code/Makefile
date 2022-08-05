@@ -35,4 +35,7 @@ sand:
 	gcc -Lmlx -lmlx -framework OpenGL -framework AppKit open_window.c
 	./a.out
 
-	
+image:	
+	gcc -Lmlx -lmlx -framework OpenGL -framework AppKit image.c
+	./a.out
+
