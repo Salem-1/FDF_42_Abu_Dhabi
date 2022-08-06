@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:12 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/06 11:55:18 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/06 19:31:26 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int ***parse_me(int fd, int n_lines)
 			map[i][k][0] = k;
 			map[i][k][1] = i;
 			map[i][k][2] = ft_atoi(splitted_split_result[0]),  //z_axis which is the value
+			//ft_printf("%s ", splitted_split_result[1]);
 			map[i][k][3] =  255; //ft_atox(splitted_split_result[1])the split rsult I will set it for 255 the defualt white for now split(split_result[0][++j], ',')[1]
 			free(splitted_split_result);
-		
 		}
 		map[i][k] = NULL;
 		k  = -1;

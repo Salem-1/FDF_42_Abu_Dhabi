@@ -6,20 +6,23 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:16 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/06 11:53:18 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/06 19:41:23 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 
+void visualize_map(int ***map);
 
 int main(int argc, char **argv)
 {
 	int		***map;
 	int		fd;
 	int		n_lines;
-	int		i, j, k;
+	int		i;
+	int		j;
+	int		k;
 
 	k = -1;
 	i = -1;
@@ -36,6 +39,22 @@ int main(int argc, char **argv)
 	if (fd == -1)
 		return (3);
 	map = parse_me(fd, n_lines);
+	visualize_map(map);
+	isometric_projection(map, i, j);
+	ft_printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+	visualize_map(map);
+	//free(map);
+	close(fd);
+	//do function to free the map after exiting
+	//free everybody;l
+	// free(map);
+
+	return (0);
+}
+
+
+void visualize_map(int ***map)
+{
 	ft_printf("[\n");
 	for (int i = 0; map[i]; i++)
 	{
@@ -56,10 +75,4 @@ int main(int argc, char **argv)
 		ft_printf("]\n");
 	}
 	ft_printf("]\n");
-	//free(map);
-	close(fd);
-	//do function to free the map after exiting
-	// free(map);
-
-	return (0);
 }

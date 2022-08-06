@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/06 11:51:08 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/06 19:40:07 by ahsalem          ###   ########.fr       */
+/*   Created: 2022/08/06 19:06:53 by ahsalem           #+#    #+#             */
+/*   Updated: 2022/08/06 19:42:06 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "fdf.h"
 
-#ifndef FDF_H
-# define FDF_H
+void isometric_projection(int ***map, int i, int j)
+{
+	
+	while (map[++i])
+	{
+		while (map[i][++j])
+		{
+			convert_3D_to_2D(map[i][j]);
+		}
+		j = -1;
+	}
+    //return (map);
+}
 
-#include "printf/ft_printf.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
-#include <unistd.h>
+void convert_3D_to_2D(int *coordinate)
+{
+	int	k;
 
-int splitted_counter(char **split_result);
-int get_line_number(char *file_name);
-int ***parse_me(int fd, int n_lines);
-void isometric_projection(int ***map, int i, int j);
-void convert_3D_to_2D(int *coordinate);
-#endif
+	k = -1;
+	while (++k < 4)
+	{
+		if (k != 2)
+			coordinate[k]++;
+		else
+		coordinate[k] = 0;
+	}
+	
+}
