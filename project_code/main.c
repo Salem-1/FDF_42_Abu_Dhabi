@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:16 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/06 19:41:23 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/07 19:47:46 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,13 @@ int main(int argc, char **argv)
 	if (fd == -1)
 		return (3);
 	map = parse_me(fd, n_lines);
-	visualize_map(map);
-	isometric_projection(map, i, j);
+	//visualize_map(map);
+	mlx_operations(map);
 	ft_printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+	//isometric_projection(map, 30, 45);
 	visualize_map(map);
 	//free(map);
 	close(fd);
-	//do function to free the map after exiting
-	//free everybody;l
-	// free(map);
-
 	return (0);
 }
 

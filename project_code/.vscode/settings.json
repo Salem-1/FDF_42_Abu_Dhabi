@@ -1,6 +1,11 @@
 {
 	"makefile.extensionOutputFolder": "./.vscode",
 	"files.associations": {
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"complex": "c",
+		"cstdlib": "c",
+		"locale": "c",
+		"ostream": "c",
+		"new": "c"
 	}
 }

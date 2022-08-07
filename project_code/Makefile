@@ -1,39 +1,35 @@
-NAME =	fdf.a
-SRC	=	gnl/get_next_line.c  gnl/get_next_line_utils.c \
-parse_me.c projection.c
+NAME =	fdf
+SRC	=	parse_me.c projection.c bersenham.c mlx_operations.c main.c
 
 LDIR = mlx
 CFLAGS =  -Wall -Wextra -Werror
 CC = gcc
 OBJ	=	$(SRC:.c=.o)
+LIBS = libft/libft.a printf/libftprintf.a ./libmlx.dylib 
 
 
 
-$(NAME):	$(OBJ)
-	ar -rcs $(NAME) $(OBJ)
-	
 all: $(NAME)
-	ar -rcs $(NAME) $(OBJ)
-	make -C printf/.
+		 
+$(NAME): 
+	make -C ./mlx
 	make -C libft/.
-	mv libft/libft.a libft.a
-	mv printf/libftprintf.a printf.a 
-	#	$(CC) $(CFLAGS) -Imlx -c $< -o $@
-
-$(NAME): $(OBJ)
-	#$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)	
+	make -C printf/.
+	mv mlx/libmlx.dylib libmlx.dylib 
+	$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(LIBS)  -framework OpenGL -framework AppKit
 	
 clean:
 	rm -f *.o
-	rm -f gnl/*.o
+	rm -f libmlx.dylib 
 	make clean -C libft/.
 	make clean -C printf/.
+	make clean -C ./mlx
 
 
 fclean: clean 
 	@rm -f $(NAME) 
-	@rm -f printf.a
-	@rm -f libft.a
+	@rm -f printf/printf.a
+	@rm -f libft/libft.a
 	@rm -f fdf
 	
 re: fclean all
@@ -47,5 +43,4 @@ image:
 	./a.out
 
 test: re
-	gcc fdf.a printf.a libft.a main.c -o fdf
 	./fdf test_maps/42.fdf
