@@ -1,10 +1,9 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/ahsalem/projects/fdf/project_code'
 make -C ./mlx
 make -C libft/.
 make -C printf/.
 mv mlx/libmlx.dylib libmlx.dylib 
 gcc -Wall -Wextra -Werror -o fdf parse_me.c projection.c bersenham.c mlx_operations.c main.c libft/libft.a printf/libftprintf.a ./libmlx.dylib   -framework OpenGL -framework AppKit
- 
 make: Leaving directory `/Users/ahsalem/projects/fdf/project_code'
  

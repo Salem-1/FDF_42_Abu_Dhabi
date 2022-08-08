@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:16 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/07 19:47:46 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/08 07:11:55 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,7 @@ int main(int argc, char **argv)
 	int		***map;
 	int		fd;
 	int		n_lines;
-	int		i;
-	int		j;
-	int		k;
-
-	k = -1;
-	i = -1;
-	j = -1;
+	
 	if (argc != 2)
 		return (1);
 	n_lines = get_line_number(argv[1]);
@@ -40,9 +34,10 @@ int main(int argc, char **argv)
 		return (3);
 	map = parse_me(fd, n_lines);
 	//visualize_map(map);
-	mlx_operations(map);
 	ft_printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-	//isometric_projection(map, 30, 45);
+	mlx_operations(map);
+	isometric_projection(map, 30, 45);
+	
 	visualize_map(map);
 	//free(map);
 	close(fd);
