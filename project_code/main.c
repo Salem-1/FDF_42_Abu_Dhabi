@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:16 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/08 07:11:55 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/09 08:01:37 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int main(int argc, char **argv)
 	int		fd;
 	int		n_lines;
 	
-	if (argc != 2)
-		return (1);
+	argc++;
+	// if (argc != 2)
+	// 	return (1);
 	n_lines = get_line_number(argv[1]);
 	if(n_lines == 0)
 	{
@@ -33,11 +34,22 @@ int main(int argc, char **argv)
 	if (fd == -1)
 		return (3);
 	map = parse_me(fd, n_lines);
-	//visualize_map(map);
-	ft_printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-	mlx_operations(map);
-	isometric_projection(map, 30, 45);
-	
+//	visualize_map(map);
+	//ft_printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+	//int id = fork();
+	//if (id == 0)
+	///{
+		//isometric_projection(map, ft_atoi(argv[2]),ft_atoi(argv[3]), ft_atoi(argv[4]));
+		//return (0);
+		//visualize_map(map);
+		mlx_operations(map);
+//	}
+	// else
+	// {
+	// 	isometric_projection(map, -145,30, 42);
+	// 	mlx_operations(map);
+	// 	return (0);
+	// }
 	visualize_map(map);
 	//free(map);
 	close(fd);

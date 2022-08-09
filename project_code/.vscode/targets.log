@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Mon Aug  8 05:29:23 2022
+# Make data base, printed on Tue Aug  9 07:48:02 2022
 
 # Variables
 
@@ -43,7 +43,7 @@ MAKEFILE_LIST :=  Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cd04003381/T/vscode-ipc-82a84803-1833-448e-9663-f31759f8c5c8.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cd04003381/T/vscode-ipc-bf485f85-b399-4779-a385-778a23e180f7.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -55,7 +55,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.7veAr22Jos/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.3cvCrmNmOY/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -145,9 +145,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 34204
+VSCODE_PID = 51380
 # variable set hash-table stats:
-# Load=67/1024=7%, Rehash=0, Collisions=2/100=2%
+# Load=67/1024=7%, Rehash=0, Collisions=2/93=2%
 
 # Pattern-specific Variable Values
 
@@ -155,9 +155,9 @@ VSCODE_PID = 34204
 
 # Directories
 
-# . (device 16777225, inode 620277): 15 files, no impossibilities.
+# . (device 16777225, inode 620277): 17 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -169,7 +169,7 @@ sand:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 38):
+#  commands to execute (from `Makefile', line 39):
 	gcc -Lmlx -lmlx -framework OpenGL -framework AppKit open_window.c
 	./a.out
 	
@@ -177,11 +177,9 @@ sand:
 all: fdf
 #  Command-line target.
 #  Implicit rule search has not been done.
-#  File does not exist.
+#  Last modified 1970-01-01 03:59:56
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/7=0%
+#  Successfully updated.
 #  commands to execute (from `Makefile', line 13):
 	
 
@@ -194,7 +192,7 @@ all: fdf
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-07 19:43:35
+#  Last modified 2022-08-09 06:17:29
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -204,7 +202,7 @@ test: re
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 46):
+#  commands to execute (from `Makefile', line 47):
 	./fdf test_maps/42.fdf
 	
 
@@ -212,7 +210,8 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 30):
+ 
+#  commands to execute (from `Makefile', line 31):
 	@rm -f $(NAME) 
 	@rm -f printf/printf.a
 	@rm -f libft/libft.a
@@ -229,7 +228,7 @@ image:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 42):
+#  commands to execute (from `Makefile', line 43):
 	gcc -Lmlx -lmlx -framework OpenGL -framework AppKit image.c
 	./a.out
 	
@@ -243,7 +242,7 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 22):
+#  commands to execute (from `Makefile', line 23):
 	rm -f *.o
 	rm -f libmlx.dylib 
 	make clean -C libft/.
@@ -253,28 +252,9 @@ clean:
 
 fdf:
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: `'
-#  File does not exist.
+#  Last modified 2022-08-09 07:29:57
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := fdf
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := 
-# automatic
-# | := 
-# automatic
-# < := 
-# automatic
-# ^ := 
-# automatic
-# ? := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=3/15=20%
+#  Successfully updated.
 #  commands to execute (from `Makefile', line 15):
 	make -C ./mlx
 	make -C libft/.
@@ -284,7 +264,7 @@ fdf:
 	
 
 # files hash-table stats:
-# Load=11/1024=1%, Rehash=0, Collisions=0/30=0%
+# Load=11/1024=1%, Rehash=0, Collisions=0/29=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -296,6 +276,6 @@ fdf:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Aug  8 05:29:23 2022
+# Finished Make data base on Tue Aug  9 07:48:02 2022
 
  

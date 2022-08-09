@@ -17,7 +17,8 @@ $(NAME):
 	make -C printf/.
 	mv mlx/libmlx.dylib libmlx.dylib 
 	$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(LIBS)  -framework OpenGL -framework AppKit
-	
+
+
 clean:
 	rm -f *.o
 	rm -f libmlx.dylib 

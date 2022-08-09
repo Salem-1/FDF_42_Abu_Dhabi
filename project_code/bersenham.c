@@ -21,8 +21,8 @@ void plotLineLow(int *x_ys, void *addr, int *img_data)
     y = x_ys[1];
 	x = x_ys[0] - 1;
 	while (++x < x_ys[2])
-	{
-	//ft_printf(" x0 = %d, x1 = %d", x, x_ys[2]);
+	{	//ft_printf(" x0 = %d, x1 = %d", x, x_ys[2]);
+
 		x_ys[0] = x;
 		x_ys[1] = y;
         my_mlx_pixel_put(addr, x_ys, img_data);

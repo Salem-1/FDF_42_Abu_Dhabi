@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:12 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/08 07:09:39 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/09 08:23:53 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int ***parse_me(int fd, int n_lines)
 			map[i][k][2] = ft_atoi(splitted_split_result[0]);  //z_axis which is the value
 			//ft_printf("%s ", splitted_split_result[1]);
 			if (map[i][k][2] != 0)
-				map[i][k][3] =  255;
+				map[i][k][3] =  ft_atox(splitted_split_result[1]);
 			else
 				map[i][k][3] =  0x00ffffff; //ft_atox(splitted_split_result[1])the split rsult I will set it for 255 the defualt white for now split(split_result[0][++j], ',')[1]
 			free(splitted_split_result);
@@ -106,6 +106,32 @@ int	splitted_counter(char **split_result)
 	return (i);
 }
 
+int ft_atox(char *n)
+{
+	int	len;
+	int	result;
+	
+	len = 0;
+	result = 0;
+	if (*n == '0')
+	{
+		n++;
+		if (*n == 'x')
+			n++;
+	}
+	else
+		return (0);
+	
+	len = ft_strlen(n) + 1;
+	while (*(n++))
+	{
+		if (ft_isdigit(*n))
+			result += (pow((*n - '0'), --len));
+		else
+			result += (pow((*n - 'a'  + 10), --len));
+	}
+	return (result);
+}
 	// //ft_printf("number of lines = %d\n", n_lines);
 	// 	one_line = get_next_line(fd);
 	// 	split_result = ft_split(one_line, ' ');
