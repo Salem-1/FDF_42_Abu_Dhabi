@@ -50,8 +50,8 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 	int	j;
 	int	k;
 	static int x_ys[5] = {0};
-	int scale_constant = 5;
-	int	move_image = 10;
+	int scale_constant = 2;
+	int	move_image = 2;
 
 	i = -1;
 	j = -1;
