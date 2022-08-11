@@ -1,10 +1,11 @@
 #include "fdf.h"
 
-
 void mlx_operations(int ***map)
 {
 	void *mlx;
 	void *mlx_window;
+	t_vars vars;
+
 	//t_data	img;
 	static int 	img_data[3] = {0}; //[bits/pixel, line_length, edian]
 	void *img;
@@ -13,14 +14,37 @@ void mlx_operations(int ***map)
 	mlx = mlx_init();
 	mlx_window = mlx_new_window(mlx, 1900, 1080, "Hello World");
 	img = mlx_new_image(mlx, 1900, 1080);
-									
+	vars.mlx = mlx;
+	vars.win = mlx_window;						
 	addr = mlx_get_data_addr(img, &img_data[0], &img_data[1], &img_data[2]);
 	fill_map_horizontal(map, addr, (int *)img_data);
 	//fill_map_vertical(map, addr, (int *)img_data);
+	clean_map(map);
 	mlx_put_image_to_window(mlx, mlx_window, img, 0, 0);
-	mlx_loop(mlx);
+	mlx_hook(vars.win, 2, 1L << 0 , close_with_esc, &vars);
+	mlx_hook(vars.win, 17, 1L << 0 , close_with_x, &vars);
+	// mlx_loop_hook(mlx, close_me, &vars);
+	ft_printf("loop %d\n", mlx_loop(mlx));
+}
+int close_with_esc (int keycode, t_vars *vars)
+{
+	if (keycode == 53)
+	{
+		ft_printf("window destroyed using esc");
+		mlx_destroy_window(vars->mlx, vars->win);
+		exit(1);
+		return (0);
+	}
+	return (0);
 }
 
+int close_with_x(t_vars *vars)
+{
+		// mlx_destroy_window(vars->mlx, vars->win);
+		(void)vars;
+		exit(1);
+		return (0);
+}
 //refractor this to put_pixel
 //x_ys (x0, y0, x1, y1, color)
 void my_mlx_pixel_put(void *addr, int *x_ys, int *img_data)
@@ -32,10 +56,11 @@ void my_mlx_pixel_put(void *addr, int *x_ys, int *img_data)
 	x = x_ys[0] ;
 	y = x_ys[1];
 
-	//x  = (x - y) / sqrt(2);
-	//y  = (x + y) / sqrt(2);
+	//Forcing rotating the map, which is quick and dirty way , that is not scalable, replace this with matrix rotation
+	 x  = (x - y) / sqrt(2);
+	y  = (x + y) / sqrt(2);
 	//ft_printf("        inside pixel pu\n");
-	if (x_ys[0] > 0  && x_ys[1] > 0 && x_ys[0] <= 1900 && x_ys[1] <= 1080)
+	if (x > 0  && y > 0 && x <= 1900 && y <= 1080)
 	{
 		dst = addr + (y * img_data[1]  + x * (img_data[0] /8));
 		*(unsigned int*)dst = x_ys[4];
@@ -50,8 +75,8 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 	int	j;
 	int	k;
 	static int x_ys[5] = {0};
-	int scale_constant = 2;
-	int	move_image = 2;
+	int scale_constant = 1;
+	int	move_image = 200;
 
 	i = -1;
 	j = -1;
@@ -60,18 +85,20 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 	{
 		while (map[i][++j + 1] && map[i + 1]) //break before last pixel
 		{
-			x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
+			//horizintal lines
+			x_ys[0] = map[i][j][0] * scale_constant + move_image * 3; //x0
 			x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-			x_ys[2] = map[i][j + 1][0] * scale_constant + move_image; //x1
+			x_ys[2] = map[i][j + 1][0] * scale_constant + move_image* 3; //x1
 			x_ys[3] = map[i][j + 1][1] * scale_constant + move_image; //y1
 			x_ys[4] = map[i][j][3]; //color
 			connect_dots(x_ys, addr, img_data);
-			x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
+			//vertical lines
+			 x_ys[0] = map[i][j][0] * scale_constant + move_image* 3; //x0
 			x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-			x_ys[2] = map[i + 1][j][0] * scale_constant + move_image; //x1
+			 x_ys[2] = map[i + 1][j][0] * scale_constant + move_image* 3; //x1
 			x_ys[3] = map[i + 1][j][1] * scale_constant + move_image; //y1
-			x_ys[4] = map[i][j][3]; //color
-			connect_dots(x_ys, addr, img_data);
+			 x_ys[4] = map[i][j][3]; //color
+			 connect_dots(x_ys, addr, img_data);
 		}
 		j = -1;
 	}	
@@ -106,3 +133,7 @@ void	fill_map_vertical(int ***map, void *addr, int *img_data)
 		
 	}	
 }*/
+
+	// map[i][j][0] = (cos(a) * ax) + ((-1) * sin(a) * map[i][j][1]); 
+	// 		map[i][j][1] = (sin(a) * ax) + (cos(a) * map[i][j][1]);
+	// 		map[i][j][2] = 0;

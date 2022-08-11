@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:12 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/09 17:27:06 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/11 19:00:50 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int ***parse_me(int fd, int n_lines)
 	k = -1;
 	j = -1;
 	i  = -1;
+	int scale_constant = 500 / n_lines;
 	map  = malloc(sizeof(int **) * (n_lines + 1));
 	if (!map)
 		return (NULL);
@@ -50,13 +51,13 @@ int ***parse_me(int fd, int n_lines)
 				// 	return (NULL);
 			splitted_split_result = ft_split(split_result[j], ',');
 			//ft_printf("splitted result = %d\n", ft_atoi(splitted_split_result[0]));
-			map[i][k][0] = k;
-			map[i][k][1] = i;
-			map[i][k][2] = ft_atoi(splitted_split_result[0]);  //z_axis which is the value
+			map[i][k][0] = k * scale_constant;
+			map[i][k][1] = i * scale_constant;
+			map[i][k][2] = -1 * (ft_atoi(splitted_split_result[0]) * scale_constant * 5);  //z_axis which is the value
 			map[i][k][3] =  ft_atox(splitted_split_result[1]);
 			//ft_printf("%s ", splitted_split_result[1]);
-			// if (map[i][k][2] != 0)
-			// 	map[i][k][3] =  ft_atox(splitted_split_result[1]);
+			//  if (map[i][k][2] != 0)
+			// 	map[i][k][3] =  0x000000ff;
 			// else
 			// 	map[i][k][3] =  0x000000ff; //ft_atox(splitted_split_result[1])the split rsult I will set it for 255 the defualt white for now split(split_result[0][++j], ',')[1]
 			free(splitted_split_result);
@@ -133,6 +134,28 @@ int ft_atox(char *n)
 			result +=  ((*n++) - 'a' + 10) *  (pow(16, --len));
     }
 	return (result);
+}
+
+
+void clean_map(int ***map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	
+	while (map[++i])
+	{
+		while (map[i][++j])
+		{
+			free(map[i][j]);
+		}
+		free(map[i]);
+		j = -1;
+	}
+		free(map[i]);
+		ft_printf("map is clean\n");
 }
 	// //ft_printf("number of lines = %d\n", n_lines);
 	// 	one_line = get_next_line(fd);

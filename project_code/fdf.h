@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:51:08 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/09 17:15:06 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/11 17:43:33 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 #include <math.h>
 #include "mlx/mlx.h"
 
+
+typedef struct s_vars
+{
+	void *mlx;
+	void *win;
+}	t_vars;
 int		splitted_counter(char **split_result);
 int		get_line_number(char *file_name);
 int		***parse_me(int fd, int n_lines);
@@ -33,5 +39,8 @@ void	plotLineLow(int *x_ys, void *addr, int *img_data);
 void	plotLineHigh(int *x_ys, void *addr, int *img_data);
 void	connect_dots(int *x_ys, void *addr, int *img_data);
 int		ft_atox(char *n);
+int 	close_with_esc (int keycode, t_vars *vars);
+int 	close_with_x (t_vars *vars);
+void	clean_map(int ***map);
 //void	fill_map_vertical(int ***map, void *addr, int *img_data);
 #endif

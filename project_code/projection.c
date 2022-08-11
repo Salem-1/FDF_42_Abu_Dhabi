@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 19:06:53 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/09 07:51:17 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/11 18:58:15 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,54 @@ void	isometric_projection(int ***map, float a, float b, float g)
 	int	j;
 	int	ax;
 	
+	
+	//a = 10 
+	//b = 10
 	i = -1;
 	j = -1;
 	a = a * M_PI / 180 ;
-	b =  b * M_PI / 180;
+	b =  b* M_PI / 180;
 	g = g * M_PI / 180;
 	while (map[++i])
 	{
 		while (map[i][++j])
 		{
 			ax = map[i][j][0];
+			/*
+			map[i][j][0]= ax * cos(a) - map[i][j][1] * sin(a);
+			map[i][j][1] = map[i][j][1] *cos(a) - ax * sin(a);
+*/
+			//isometrix projection equation from wikipedia
 			
-			// Multiplying row pitch and yow together
-			map[i][j][0] = (cos(a) * cos(b) * (ax)) + (((cos(a) * sin(b) * sin(g)) - (sin(a) * cos(g))) *  map[i][j][1]) + (((cos(a) * sin(b) * cos(g)) + (sin(a) * sin(g))) * map[i][j][2]) ;
-			map[i][j][1] = (sin(a) * cos(b) * (ax)) + (((sin(a)* sin(b)  * sin(g)) + (cos(a) * cos(g))) * map[i][j][1]) + (((sin(a) * sin(b) * cos(g)) - (cos(a) * sin(g))) * map[i][j][2]) ;
+			map[i][j][0] = ((cos(a) * (ax)) + (sin(b) * map[i][j][2])) ;
+			map[i][j][1] = ((sin(a) * sin(b) * (ax)) + (cos(a) * map[i][j][1]) + (sin(a) * cos(b) * map[i][j][2])) ;
 			map[i][j][2] = 0;
+			/*
+			ax = map[i][j][0];
+			map[i][j][0] = (cos(a) * (ax)) + (sin(b) * map[i][j][2]) ;
+			map[i][j][1] = (sin(a) * sin(b) * (ax)) + (cos(a) * map[i][j][1]) + (sin(a) * cos(b) * map[i][j][2]);
+			map[i][j][2] = 0;
+	
+			map[i][j][0] = (cos(a) *ax) + (sin(a) * z); 
+			map[i][j][1] = (cos(a) * map[i][j][1])  + (map[i][j][2] * ((-1) * sin(a)));
+			map[i][j][2] = 0;
+			
+			// rotation around x or y axis, I don't remember actually
+			map[i][j][0] = ax; 
+			map[i][j][1] = (cos(a) * map[i][j][1])  + (map[i][j][1] * ((-1) * sin(a)));
+			map[i][j][2] = 0;
+			*/
 		}
 		j = -1;
 	}
 }
 			//rotation around x_axis only
+			/*
+			// Multiplying row pitch and yow together
+			map[i][j][0] = (cos(a) * cos(b) * (ax)) + (((cos(a) * sin(b) * sin(g)) - (sin(a) * cos(g))) *  map[i][j][1]) + (((cos(a) * sin(b) * cos(g)) + (sin(a) * sin(g))) * map[i][j][2]) ;
+			map[i][j][1] = (sin(a) * cos(b) * (ax)) + (((sin(a)* sin(b)  * sin(g)) + (cos(a) * cos(g))) * map[i][j][1]) + (((sin(a) * sin(b) * cos(g)) - (cos(a) * sin(g))) * map[i][j][2]) ;
+			map[i][j][2] = 0;
+			*/
 			/*map[i][j][0] *=  sin(a);
 			map[i][j][1] *=  sin(a);
 			map[i][j][2] = 0;

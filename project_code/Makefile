@@ -11,7 +11,7 @@ LIBS = libft/libft.a printf/libftprintf.a ./libmlx.dylib
 
 all: $(NAME)
 		 
-$(NAME): 
+$(NAME): $(OBJ)
 	make -C ./mlx
 	make -C libft/.
 	make -C printf/.
