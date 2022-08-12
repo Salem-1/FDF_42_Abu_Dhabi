@@ -14,7 +14,8 @@ void plotLineLow(int *x_ys, void *addr, int *img_data)
     dy = x_ys[3] - x_ys[1];
     yi = 1;
     if (dy < 0)
-    {   yi = -1;
+    {   
+		yi = -1;
         dy = -dy;
     }
     D = (2 * dy) - dx;
@@ -73,20 +74,44 @@ void plotLineHigh(int *x_ys, void *addr, int *img_data)
  }
 void connect_dots(int *x_ys, void *addr, int *img_data)
 {
+	int	tmp;
+
     if (abs(x_ys[3] - x_ys[1]) < abs(x_ys[2] - x_ys[0]))
     {   
 		if (x_ys[0] > x_ys[2])
+		{
+			tmp = x_ys[0];
+			x_ys[0] = x_ys[2];
+			x_ys[2] = tmp;
+			tmp = x_ys[1];
+			x_ys[1] = x_ys[3];
+			x_ys[3] = tmp;
+			
             plotLineLow(x_ys, addr, img_data);
-        else
+		}
+		else
             plotLineLow(x_ys, addr, img_data);
+		
 	}
     else
 	{
         if (x_ys[1] > x_ys[3])
+		{
+			tmp = x_ys[0];
+			x_ys[0] = x_ys[2];
+			x_ys[2] = tmp;
+			tmp = x_ys[1];
+			x_ys[1] = x_ys[3];
+			x_ys[3] = tmp;
             plotLineHigh(x_ys, addr, img_data);
-        else
-            plotLineHigh(x_ys, addr, img_data);   
-    }
+		}
+		else
+		{
+            
+			plotLineHigh(x_ys, addr, img_data);   
+				
+		}
+	}
 }
 
 /*

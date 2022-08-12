@@ -62,7 +62,7 @@ void my_mlx_pixel_put(void *addr, int *x_ys, int *img_data)
 	//ft_printf("        inside pixel pu\n");
 	if (x > 0  && y > 0 && x <= 1900 && y <= 1080)
 	{
-		dst = addr + (y * img_data[1]  + x * (img_data[0] /8));
+		dst = addr + (y * img_data[1]  + x * (img_data[0] / 8));
 		*(unsigned int*)dst = x_ys[4];
 	}
 	//ft_printf("Putting pixel %x \n", dst);
@@ -76,29 +76,39 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 	int	k;
 	static int x_ys[5] = {0};
 	int scale_constant = 1;
-	int	move_image = 400;
+	int	move_image = 800;
 
 	i = -1;
 	j = -1;
 	k = -1;
 	while (map[++i])
 	{
-		while (map[i][++j + 1] && map[i + 1]) //break before last pixel
+		while (map[i][++j ] && map[i ]) //break before last pixel
 		{
 			//horizintal lines
-			x_ys[0] = map[i][j][0] * scale_constant + move_image ; //x0
-			x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-			x_ys[2] = map[i][j + 1][0] * scale_constant + move_image ; //x1
-			x_ys[3] = map[i][j + 1][1] * scale_constant + move_image; //y1
-			x_ys[4] = map[i][j][3]; //color
-			connect_dots(x_ys, addr, img_data);
-			//vertical lines
-			 x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
-			x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-			 x_ys[2] = map[i + 1][j][0] * scale_constant + move_image; //x1
-			x_ys[3] = map[i + 1][j][1] * scale_constant + move_image; //y1
-			 x_ys[4] = map[i][j][3]; //color
-			 connect_dots(x_ys, addr, img_data);
+			if (map[i][j + 1])
+			{
+				x_ys[0] = map[i][j][0] * scale_constant + move_image ; //x0
+				x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
+				x_ys[2] = map[i][j + 1][0] * scale_constant + move_image ; //x1
+				x_ys[3] = map[i][j + 1][1] * scale_constant + move_image; //y1
+				x_ys[4] = map[i][j][3]; //color
+				connect_dots(x_ys, addr, img_data);
+			}//vertical lines
+			if (map[i + 1])
+			{
+				x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
+				x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
+				x_ys[2] = map[i + 1][j][0] * scale_constant + move_image; //x1
+				x_ys[3] = map[i + 1][j][1] * scale_constant + move_image; //y1
+				x_ys[4] = map[i][j][3]; //color
+				connect_dots(x_ys, addr, img_data);
+			}//  x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
+			// x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
+			//  x_ys[2] = map[i + 1][j + 1][0] * scale_constant + move_image; //x1
+			// x_ys[3] = map[i + 1][j + 1][1] * scale_constant + move_image; //y1
+			//  x_ys[4] = map[i][j][3]; //color
+			//  connect_dots(x_ys, addr, img_data);
 		}
 		j = -1;
 	}	
