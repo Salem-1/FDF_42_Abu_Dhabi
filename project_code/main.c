@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:16 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/11 18:58:47 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/12 06:48:33 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	//int id = fork();
 	//if (id == 0)
 	///{
-	isometric_projection(map, ft_atoi(argv[2]),ft_atoi(argv[3]), ft_atoi(argv[4]));
+	isometric_projection(map, ft_atoi(argv[2]),ft_atoi(argv[3]), ft_atoi(argv[4]), ft_atoi(argv[5]), ft_atoi(argv[6]));
 		//return (0);
 		//visualize_map(map);
 	mlx_operations(map);

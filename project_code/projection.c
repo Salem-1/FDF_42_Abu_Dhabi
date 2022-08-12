@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 19:06:53 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/11 18:58:15 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/12 07:53:03 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 
 //redo the matrix multiplication on the Z axis
 //Ask google.
-void	isometric_projection(int ***map, float a, float b, float g)
+
+/*
+	possible angels:
+	 5 5 -50 3 5
+	 5 5 -60 10 3
+	 5 5 -50 -45 -5
+	 5 5 -50 -45 -2
+	 5 5 -60 -45 -2
+	  5 5 -60 20 -2
+	  5 5 -60 -5 -2
+	  5 5 -50 -35 -15  best till now like the sample fdf
+*/
+
+void	isometric_projection(int ***map, float a, float b, float g, float c, float d)
 {
 	int	i;
 	int	j;
@@ -28,21 +41,67 @@ void	isometric_projection(int ***map, float a, float b, float g)
 	a = a * M_PI / 180 ;
 	b =  b* M_PI / 180;
 	g = g * M_PI / 180;
+	c = c * M_PI / 180;
+	d = d * M_PI / 180;
 	while (map[++i])
 	{
 		while (map[i][++j])
 		{
+			rotateX3D(g, &map[i][j]);
+			rotateY3D(c, &map[i][j]); 
+			rotateZ3D(d, &map[i][j]);
 			ax = map[i][j][0];
-			/*
+	
+			map[i][j][0] = ((cos(a) * (ax)) + (sin(b) * map[i][j][2])) ;
+			map[i][j][1] = ((sin(a) * sin(b) * (ax)) + (cos(a) * map[i][j][1]) + (sin(a) * cos(b) * map[i][j][2])) ;
+			map[i][j][2] = 0;
+			
+		}
+		j = -1;
+	}
+}
+
+void rotateX3D(float theta, int **node) 
+{
+   	float sinTheta = sin(theta);
+   	float cosTheta = cos(theta);
+    int y = node[0][1];
+    int z = node[0][2];
+    node[0][1] = y * cosTheta - z * sinTheta;
+    node[0][2] = z * cosTheta + y * sinTheta;
+   
+}
+
+void rotateY3D(float theta, int **node) 
+{
+   	float sinTheta = sin(theta);
+   	float cosTheta = cos(theta);
+    int x = node[0][0];
+    int z = node[0][2];
+    node[0][0] = x * cosTheta + z * sinTheta;
+    node[0][2] = z * cosTheta - x * sinTheta;
+
+}
+
+void rotateZ3D(float theta, int **node) 
+{
+   	float	sinTheta = sin(theta);
+   	float	cosTheta = cos(theta);
+    int		x = node[0][0];
+    int y = node[0][1];
+    node[0][0] = x * cosTheta - y * sinTheta;
+    node[0][1] = y * cosTheta + x * sinTheta;
+   
+}
+
+		/*
 			map[i][j][0]= ax * cos(a) - map[i][j][1] * sin(a);
 			map[i][j][1] = map[i][j][1] *cos(a) - ax * sin(a);
 */
 			//isometrix projection equation from wikipedia
 			
-			map[i][j][0] = ((cos(a) * (ax)) + (sin(b) * map[i][j][2])) ;
-			map[i][j][1] = ((sin(a) * sin(b) * (ax)) + (cos(a) * map[i][j][1]) + (sin(a) * cos(b) * map[i][j][2])) ;
-			map[i][j][2] = 0;
-			/*
+
+/*
 			ax = map[i][j][0];
 			map[i][j][0] = (cos(a) * (ax)) + (sin(b) * map[i][j][2]) ;
 			map[i][j][1] = (sin(a) * sin(b) * (ax)) + (cos(a) * map[i][j][1]) + (sin(a) * cos(b) * map[i][j][2]);
@@ -57,10 +116,10 @@ void	isometric_projection(int ***map, float a, float b, float g)
 			map[i][j][1] = (cos(a) * map[i][j][1])  + (map[i][j][1] * ((-1) * sin(a)));
 			map[i][j][2] = 0;
 			*/
-		}
-		j = -1;
-	}
-}
+
+
+
+
 			//rotation around x_axis only
 			/*
 			// Multiplying row pitch and yow together

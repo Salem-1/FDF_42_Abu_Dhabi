@@ -57,8 +57,8 @@ void my_mlx_pixel_put(void *addr, int *x_ys, int *img_data)
 	y = x_ys[1];
 
 	//Forcing rotating the map, which is quick and dirty way , that is not scalable, replace this with matrix rotation
-	 x  = (x - y) / sqrt(2);
-	y  = (x + y) / sqrt(2);
+	//  x  = (x - y) / sqrt(2);
+	// y  = (x + y) / sqrt(2);
 	//ft_printf("        inside pixel pu\n");
 	if (x > 0  && y > 0 && x <= 1900 && y <= 1080)
 	{
@@ -76,7 +76,7 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 	int	k;
 	static int x_ys[5] = {0};
 	int scale_constant = 1;
-	int	move_image = 200;
+	int	move_image = 400;
 
 	i = -1;
 	j = -1;
@@ -86,16 +86,16 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 		while (map[i][++j + 1] && map[i + 1]) //break before last pixel
 		{
 			//horizintal lines
-			x_ys[0] = map[i][j][0] * scale_constant + move_image * 3; //x0
+			x_ys[0] = map[i][j][0] * scale_constant + move_image ; //x0
 			x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-			x_ys[2] = map[i][j + 1][0] * scale_constant + move_image* 3; //x1
+			x_ys[2] = map[i][j + 1][0] * scale_constant + move_image ; //x1
 			x_ys[3] = map[i][j + 1][1] * scale_constant + move_image; //y1
 			x_ys[4] = map[i][j][3]; //color
 			connect_dots(x_ys, addr, img_data);
 			//vertical lines
-			 x_ys[0] = map[i][j][0] * scale_constant + move_image* 3; //x0
+			 x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
 			x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-			 x_ys[2] = map[i + 1][j][0] * scale_constant + move_image* 3; //x1
+			 x_ys[2] = map[i + 1][j][0] * scale_constant + move_image; //x1
 			x_ys[3] = map[i + 1][j][1] * scale_constant + move_image; //y1
 			 x_ys[4] = map[i][j][3]; //color
 			 connect_dots(x_ys, addr, img_data);

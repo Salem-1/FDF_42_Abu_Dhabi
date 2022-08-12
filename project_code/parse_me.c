@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:12 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/11 19:00:50 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/12 07:59:32 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int ***parse_me(int fd, int n_lines)
 	k = -1;
 	j = -1;
 	i  = -1;
-	int scale_constant = 500 / n_lines;
+	int scale_constant = 300	 / n_lines;
 	map  = malloc(sizeof(int **) * (n_lines + 1));
 	if (!map)
 		return (NULL);
@@ -53,7 +53,7 @@ int ***parse_me(int fd, int n_lines)
 			//ft_printf("splitted result = %d\n", ft_atoi(splitted_split_result[0]));
 			map[i][k][0] = k * scale_constant;
 			map[i][k][1] = i * scale_constant;
-			map[i][k][2] = -1 * (ft_atoi(splitted_split_result[0]) * scale_constant * 5);  //z_axis which is the value
+			map[i][k][2] = -1 * (ft_atoi(splitted_split_result[0]) * scale_constant) ;  //z_axis which is the value
 			map[i][k][3] =  ft_atox(splitted_split_result[1]);
 			//ft_printf("%s ", splitted_split_result[1]);
 			//  if (map[i][k][2] != 0)
