@@ -9,6 +9,7 @@
 		"new": "c",
 		"__config": "c",
 		"__functional_03": "c",
-		"functional": "c"
+		"functional": "c",
+		"algorithm": "c"
 	}
 }

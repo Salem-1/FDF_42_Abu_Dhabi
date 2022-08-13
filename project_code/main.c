@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:16 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/12 08:24:38 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/13 12:59:43 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@ int main(int argc, char **argv)
 		return (3);
 	ft_printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 	map = parse_me(fd, n_lines);
-	visualize_map(map);
+	scale_map(map, n_lines);
+	//visualize_map(map);
 	//int id = fork();
 	//if (id == 0)
 	///{
-	isometric_projection(map, ft_atoi(argv[2]),ft_atoi(argv[3]), ft_atoi(argv[4]), ft_atoi(argv[5]), ft_atoi(argv[6]));
+	isometric_projection(map);
 		//return (0);
 		//visualize_map(map);
 	mlx_operations(map);

@@ -1,5 +1,5 @@
 NAME =	fdf
-SRC	=	parse_me.c projection.c bersenham.c mlx_operations.c main.c
+SRC	=	parse_me.c projection.c bersenham.c mlx_operations.c  utils_fdf.c main.c
 
 LDIR = mlx
 CFLAGS =  -Wall -Wextra -Werror

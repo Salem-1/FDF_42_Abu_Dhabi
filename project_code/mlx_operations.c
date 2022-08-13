@@ -75,8 +75,7 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 	int	j;
 	int	k;
 	static int x_ys[5] = {0};
-	int scale_constant = 1;
-	int	move_image = 800;
+	int	move_image = 500;
 
 	i = -1;
 	j = -1;
@@ -88,62 +87,32 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 			//horizintal lines
 			if (map[i][j + 1])
 			{
-				x_ys[0] = map[i][j][0] * scale_constant + move_image ; //x0
-				x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-				x_ys[2] = map[i][j + 1][0] * scale_constant + move_image ; //x1
-				x_ys[3] = map[i][j + 1][1] * scale_constant + move_image; //y1
-				x_ys[4] = map[i][j][3]; //color
-				connect_dots(x_ys, addr, img_data);
-			}//vertical lines
+				x_ys[0] = map[i][j][0] + move_image ; //x0
+				x_ys[1] = map[i][j][1] + move_image; //y0
+				x_ys[2] = map[i][j + 1][0] + move_image ; //x1
+				x_ys[3] = map[i][j + 1][1]  + move_image; //y1
+				if (map[i][j + 1][3] > map[i][j + 1][3])
+					x_ys[4] = map[i][j + 1][3]; //color
+		        else
+					x_ys[4] = map[i][j][3];
+				//ft_printf("last survivor point map[%d][%d][%d]------", i, j, 0);
+                connect_dots(x_ys, addr, img_data);
+			    
+            }//vertical lines
 			if (map[i + 1])
 			{
-				x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
-				x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-				x_ys[2] = map[i + 1][j][0] * scale_constant + move_image; //x1
-				x_ys[3] = map[i + 1][j][1] * scale_constant + move_image; //y1
-				x_ys[4] = map[i][j][3]; //color
+				x_ys[0] = map[i][j][0] + move_image; //x0
+				x_ys[1] = map[i][j][1] + move_image; //y0
+				x_ys[2] = map[i + 1][j][0] + move_image; //x1
+				x_ys[3] = map[i + 1][j][1] + move_image; //y1
+				if(map[i + 1][j][3] > map[i][j][3])
+					x_ys[4] = map[i + 1][j][3]; //color
+				else
+					x_ys[4] = map[i][j][3];
+                //ft_printf("last survivor point map[%d][%d][%d]\n", i, j, 0);
 				connect_dots(x_ys, addr, img_data);
-			}//  x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
-			// x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-			//  x_ys[2] = map[i + 1][j + 1][0] * scale_constant + move_image; //x1
-			// x_ys[3] = map[i + 1][j + 1][1] * scale_constant + move_image; //y1
-			//  x_ys[4] = map[i][j][3]; //color
-			//  connect_dots(x_ys, addr, img_data);
+			}
 		}
 		j = -1;
 	}	
 }
-/*
-void	fill_map_vertical(int ***map, void *addr, int *img_data)
-{
-	//I need x1, y1, x2, y2, color
-	int	i;
-	int	j;
-	int	k;
-	static int x_ys[5] = {0};
-	int scale_constant = 50;
-	int	move_image = 200;
-
-	i = 0;
-	j = -1;
-	k = -1;
-	while (map[i][++j])
-	{
-		while (map[i + 1]) //break before last pixel
-		{
-			x_ys[0] = map[i][j][0] * scale_constant + move_image; //x0
-			x_ys[1] = map[i][j][1] * scale_constant + move_image; //y0
-			x_ys[2] = map[i + 1][j][0] * scale_constant + move_image; //x1
-			x_ys[3] = map[i + 1][j][1] * scale_constant + move_image; //y1
-			x_ys[4] = map[i][j][3]; //color
-			connect_dots(x_ys, addr, img_data);
-			i++;
-		}
-		i = 0;
-		
-	}	
-}*/
-
-	// map[i][j][0] = (cos(a) * ax) + ((-1) * sin(a) * map[i][j][1]); 
-	// 		map[i][j][1] = (sin(a) * ax) + (cos(a) * map[i][j][1]);
-	// 		map[i][j][2] = 0;

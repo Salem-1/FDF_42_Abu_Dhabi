@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:51:08 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/12 06:48:41 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/13 13:00:24 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_vars
 int		splitted_counter(char **split_result);
 int		get_line_number(char *file_name);
 int		***parse_me(int fd, int n_lines);
-void	isometric_projection(int ***map, float a, float b, float g, float c, float d);
+void	isometric_projection(int ***map);
 void	connect_dots(int *x_ys, void *addr, int *img_data);
 void	fill_map_horizontal(int ***map, void *addr, int *img_data);
 void	my_mlx_pixel_put(void *adrr, int *x_ys, int *img_data);
@@ -45,5 +45,7 @@ void	clean_map(int ***map);
 void	rotateX3D(float theta, int **node);
 void	rotateY3D(float theta, int **node);
 void	rotateZ3D(float theta, int **node);
+int		scale_ratio(int	n_lines);
+void	scale_map(int ***map,int n_lines);
 //void	fill_map_vertical(int ***map, void *addr, int *img_data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 19:06:53 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/12 07:53:03 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/12 20:15:11 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,37 @@
 	  5 5 -60 20 -2
 	  5 5 -60 -5 -2
 	  5 5 -50 -35 -15  best till now like the sample fdf
+	  5 5 -50 -35 -15
+	  a b g    c  d
 */
 
-void	isometric_projection(int ***map, float a, float b, float g, float c, float d)
+void	isometric_projection(int ***map)
 {
 	int	i;
 	int	j;
 	int	ax;
-	
+	float angels[5];
 	
 	//a = 10 
 	//b = 10
 	i = -1;
 	j = -1;
-	a = a * M_PI / 180 ;
-	b =  b* M_PI / 180;
-	g = g * M_PI / 180;
-	c = c * M_PI / 180;
-	d = d * M_PI / 180;
+	angels[0] = 5 * M_PI / 180 ;
+	angels[1] =  5* M_PI / 180;
+	angels[2] = -50 * M_PI / 180;
+	angels[3] = -35 * M_PI / 180;
+	angels[4]= -15 * M_PI / 180;
 	while (map[++i])
 	{
 		while (map[i][++j])
 		{
-			rotateX3D(g, &map[i][j]);
-			rotateY3D(c, &map[i][j]); 
-			rotateZ3D(d, &map[i][j]);
+			rotateX3D(angels[2], &map[i][j]);
+			rotateY3D(angels[3], &map[i][j]); 
+			rotateZ3D(angels[4], &map[i][j]);
 			ax = map[i][j][0];
 	
-			map[i][j][0] = ((cos(a) * (ax)) + (sin(b) * map[i][j][2])) ;
-			map[i][j][1] = ((sin(a) * sin(b) * (ax)) + (cos(a) * map[i][j][1]) + (sin(a) * cos(b) * map[i][j][2])) ;
+			map[i][j][0] = ((cos(angels[0]) * (ax)) + (sin(angels[1]) * map[i][j][2])) ;
+			map[i][j][1] = ((sin(angels[0]) * sin(angels[1]) * (ax)) + (cos(angels[0]) * map[i][j][1]) + (sin(angels[0]) * cos(angels[1]) * map[i][j][2])) ;
 			map[i][j][2] = 0;
 			
 		}
