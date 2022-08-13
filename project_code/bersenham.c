@@ -75,7 +75,8 @@ void plotLineHigh(int *x_ys, void *addr, int *img_data)
 void connect_dots(int *x_ys, void *addr, int *img_data)
 {
 	int	tmp;
-
+	//ft_printf("last pixel on the plnet (%d, %d) to (%d, %d)\n", img_data[0],
+	//	 img_data[1], img_data[2], img_data[3]);
     if (abs(x_ys[3] - x_ys[1]) < abs(x_ys[2] - x_ys[0]))
     {   
 		if (x_ys[0] > x_ys[2])

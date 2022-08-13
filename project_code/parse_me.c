@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:12 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/13 13:06:58 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/13 14:50:28 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void clean_map(int ***map)
 		j = -1;
 	}
 		free(map[i]);
-		ft_printf("map is clean\n");
+	//	ft_printf("map is clean\n");
 }
 	// //ft_printf("number of lines = %d\n", n_lines);
 	// 	one_line = get_next_line(fd);

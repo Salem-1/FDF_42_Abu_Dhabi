@@ -24,13 +24,13 @@ void mlx_operations(int ***map)
 	mlx_hook(vars.win, 2, 1L << 0 , close_with_esc, &vars);
 	mlx_hook(vars.win, 17, 1L << 0 , close_with_x, &vars);
 	// mlx_loop_hook(mlx, close_me, &vars);
-	ft_printf("loop %d\n", mlx_loop(mlx));
+	 mlx_loop(mlx);
 }
 int close_with_esc (int keycode, t_vars *vars)
 {
 	if (keycode == 53)
 	{
-		ft_printf("window destroyed using esc");
+		//ft_printf("window destroyed using esc");
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(1);
 		return (0);
@@ -91,11 +91,11 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 				x_ys[1] = map[i][j][1] + move_image; //y0
 				x_ys[2] = map[i][j + 1][0] + move_image ; //x1
 				x_ys[3] = map[i][j + 1][1]  + move_image; //y1
-				if (map[i][j + 1][3] > map[i][j + 1][3])
+				if (map[i][j + 1][3] > map[i][j][3])
 					x_ys[4] = map[i][j + 1][3]; //color
 		        else
 					x_ys[4] = map[i][j][3];
-				//ft_printf("last survivor point map[%d][%d][%d]------", i, j, 0);
+			//	ft_printf("last survivor point map[%d][%d][%d]------", i, j, 0);
                 connect_dots(x_ys, addr, img_data);
 			    
             }//vertical lines
@@ -109,7 +109,7 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 					x_ys[4] = map[i + 1][j][3]; //color
 				else
 					x_ys[4] = map[i][j][3];
-                //ft_printf("last survivor point map[%d][%d][%d]\n", i, j, 0);
+            //    ft_printf("last survivor point map[%d][%d][%d]\n", i, j, 0);
 				connect_dots(x_ys, addr, img_data);
 			}
 		}
