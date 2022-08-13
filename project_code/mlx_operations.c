@@ -63,6 +63,7 @@ void my_mlx_pixel_put(void *addr, int *x_ys, int *img_data)
 	if (x > 0  && y > 0 && x <= 1900 && y <= 1080)
 	{
 		dst = addr + (y * img_data[1]  + x * (img_data[0] / 8));
+	//	ft_printf("%x\n",x_ys[4] );
 		*(unsigned int*)dst = x_ys[4];
 	}
 	//ft_printf("Putting pixel %x \n", dst);
@@ -95,6 +96,7 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 					x_ys[4] = map[i][j + 1][3]; //color
 		        else
 					x_ys[4] = map[i][j][3];
+			//	ft_printf("color = %x\n", x_ys[4]);
 			//	ft_printf("last survivor point map[%d][%d][%d]------", i, j, 0);
                 connect_dots(x_ys, addr, img_data);
 			    
@@ -109,6 +111,7 @@ void fill_map_horizontal(int ***map, void *addr, int *img_data)
 					x_ys[4] = map[i + 1][j][3]; //color
 				else
 					x_ys[4] = map[i][j][3];
+				//ft_printf("color = %x\n", x_ys[4]);
             //    ft_printf("last survivor point map[%d][%d][%d]\n", i, j, 0);
 				connect_dots(x_ys, addr, img_data);
 			}

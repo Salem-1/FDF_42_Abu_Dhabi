@@ -1,15 +1,6 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/ahsalem/projects/fdf/project_code'
-gcc -Wall -Wextra -Werror   -c -o parse_me.o parse_me.c
-gcc -Wall -Wextra -Werror   -c -o projection.o projection.c
-gcc -Wall -Wextra -Werror   -c -o bersenham.o bersenham.c
-gcc -Wall -Wextra -Werror   -c -o mlx_operations.o mlx_operations.c
-gcc -Wall -Wextra -Werror   -c -o utils_fdf.o utils_fdf.c
-gcc -Wall -Wextra -Werror   -c -o main.o main.c
-make -C ./mlx
-make -C libft/.
-make -C printf/.
-mv mlx/libmlx.dylib libmlx.dylib 
-gcc -Wall -Wextra -Werror -o fdf parse_me.c projection.c bersenham.c mlx_operations.c  utils_fdf.c main.c libft/libft.a printf/libftprintf.a ./libmlx.dylib   -framework OpenGL -framework AppKit
+make: `all' is up to date.
+ 
 make: Leaving directory `/Users/ahsalem/projects/fdf/project_code'
  

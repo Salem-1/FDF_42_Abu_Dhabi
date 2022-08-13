@@ -2,7 +2,7 @@ NAME =	fdf
 SRC	=	parse_me.c projection.c bersenham.c mlx_operations.c  utils_fdf.c main.c
 
 LDIR = mlx
-CFLAGS =  -Wall -Wextra -Werror
+CFLAGS =  -Wall -Wextra -Werror -Ofast
 CC = gcc
 OBJ	=	$(SRC:.c=.o)
 LIBS = libft/libft.a printf/libftprintf.a ./libmlx.dylib 

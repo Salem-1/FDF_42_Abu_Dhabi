@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:12 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/13 14:50:28 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/13 17:54:57 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,29 @@ int ***parse_me(int fd, int n_lines)
 			map[i][k][1] = i * scale_constant;
 			map[i][k][2] = -1 * (ft_atoi(splitted_split_result[0]) * scale_constant ) ;  //z_axis which is the value
 			map[i][k][3] =  ft_atox(splitted_split_result[1]);
-			// 	map[i][k][3] =  0x000000ff; //ft_atox(splitted_split_result[1])the split rsult I will set it for 255 the defualt white for now split(split_result[0][++j], ',')[1]
-			free(splitted_split_result);
+		 	//map[i][k][3] =  0xfedf0000; //ft_atox(splitted_split_result[1])the split rsult I will set it for 255 the defualt white for now split(split_result[0][++j], ',')[1]
+			free_split(splitted_split_result);
 		}
 		map[i][k] = NULL;
 		k  = -1;
-		free(split_result);
+		free_split(split_result);
 		j = -1;
 	}
 	map[i] = NULL;
 	return (map);
 }
-	
+
+void free_split(char **split)
+{
+	int	i;
+
+	i = -1;
+	while(split[++i])
+	{
+		free(split[i]);
+	}
+	free(split);	
+}
 
 int get_line_number(char *file_name)
 {
@@ -127,6 +138,7 @@ int ft_atox(char *n)
 	len = ft_strlen(n);
     while (*(n))
 	{
+		*n = ft_tolower(*n);
         if (ft_isdigit(*n))
 			result +=  ((*n++) - '0') *  (pow(16, --len));
 		else

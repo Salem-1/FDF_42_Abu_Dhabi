@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 19:06:53 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/12 20:15:11 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/13 17:12:58 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	isometric_projection(int ***map)
 	i = -1;
 	j = -1;
 	angels[0] = 5 * M_PI / 180 ;
-	angels[1] =  5* M_PI / 180;
+	angels[1] =  5 * M_PI / 180;
 	angels[2] = -50 * M_PI / 180;
 	angels[3] = -35 * M_PI / 180;
 	angels[4]= -15 * M_PI / 180;

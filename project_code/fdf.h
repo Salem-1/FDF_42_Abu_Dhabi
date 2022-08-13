@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:51:08 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/13 13:00:24 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/13 17:55:03 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	rotateY3D(float theta, int **node);
 void	rotateZ3D(float theta, int **node);
 int		scale_ratio(int	n_lines);
 void	scale_map(int ***map,int n_lines);
+void	free_split(char **split);
 //void	fill_map_vertical(int ***map, void *addr, int *img_data);
 #endif
