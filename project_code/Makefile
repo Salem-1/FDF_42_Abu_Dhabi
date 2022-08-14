@@ -11,14 +11,14 @@ LIBS = libft/libft.a printf/libftprintf.a ./libmlx.dylib
 
 all: $(NAME)
 		 
-$(NAME): comp_libs $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(LIBS)  -framework OpenGL -framework AppKit
-
-comp_libs:
+$(NAME): $(OBJ)
 	make -C ./mlx
 	make -C libft/.
 	make -C printf/.
 	mv mlx/libmlx.dylib libmlx.dylib 
+	$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(LIBS)  -framework OpenGL -framework AppKit
+
+
 
 clean:
 	rm -f *.o

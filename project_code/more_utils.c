@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:24:10 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/14 11:12:14 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/14 11:18:13 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	fill_horizontal(int ***map, void *addr,
 	connect_dots(m_vars.x_ys, addr, img_data);
 }
 
-void	fill_vertical(int ***map, void *addr, int *img_data, t_map_filler m_vars)
+void	fill_vertical(int ***map, void *addr,
+			int *img_data, t_map_filler m_vars)
 {
 	m_vars.x_ys[0] = map[m_vars.i][m_vars.j][0] + m_vars.move_image;
 	m_vars.x_ys[1] = map[m_vars.i][m_vars.j][1] + m_vars.move_image;
