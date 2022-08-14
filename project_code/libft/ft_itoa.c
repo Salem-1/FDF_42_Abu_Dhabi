@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 20:34:36 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/06/01 08:27:23 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/14 10:19:24 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static char	*specials(int c)
 	else
 	{
 		result = malloc(sizeof(char) * 12);
-		strlcpy(result, "-2147483648", 12);
+		ft_strlcpy(result, "-2147483648", 12);
 	}
 	return (result);
 }

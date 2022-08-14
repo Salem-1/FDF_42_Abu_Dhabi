@@ -6,19 +6,19 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 17:41:05 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/07/25 21:17:11 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/14 10:20:45 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include <string.h>
 # include <stdlib.h>
 # include <stddef.h>
 # include <ctype.h>
 # include <unistd.h>
 # include <fcntl.h>
 
+void	ft_swap(int *a, int *b);
 void	ft_putstr(const char *s);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

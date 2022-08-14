@@ -1,111 +1,111 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bersenham.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 10:00:54 by ahsalem           #+#    #+#             */
+/*   Updated: 2022/08/14 11:12:27 by ahsalem          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-//you can do all the declartion later in one line as static int vars[6];
-void plotLineLow(int *x_ys, void *addr, int *img_data)
- {
-	// int dx;
-	// int dy;
-	// int yi;
-	// int diff;
-	// int	y;
-	// int x;
-	b_vars bers;
+t_b_vars	fill_bers_struct(int *x_ys)
+{
+	t_b_vars	bers;
 
 	bers.dx = x_ys[2] - x_ys[0];
-    bers.dy = x_ys[3] - x_ys[1];
-    bers.yi = 1;
-    if (bers.dy < 0)
-    {   
+	bers.dy = x_ys[3] - x_ys[1];
+	bers.yi = 1;
+	bers.xi = 1;
+	bers.diff = 0;
+	bers.y = 0;
+	bers.x = 0;
+	return (bers);
+}
+
+void	plot_line_low(int *x_ys, void *addr, int *img_data)
+{
+	t_b_vars	bers;
+
+	bers = fill_bers_struct(x_ys);
+	if (bers.dy < 0)
+	{
 		bers.yi = -1;
-        bers.dy = -bers.dy;
-    }
-    bers.diff = (2 * bers.dy) - bers.dx;
-    bers.y = x_ys[1];
+		bers.dy = -bers.dy;
+	}
+	bers.diff = (2 * bers.dy) - bers.dx;
+	bers.y = x_ys[1];
 	bers.x = x_ys[0] - 1;
 	while (++bers.x < x_ys[2])
 	{
-		x_ys[0] = bers.x ;
+		x_ys[0] = bers.x;
 		x_ys[1] = bers.y;
-        my_mlx_pixel_put(addr, x_ys, img_data);
-        if (bers.diff > 0)
+		my_mlx_pixel_put(addr, x_ys, img_data);
+		if (bers.diff > 0)
 		{
-            bers.y = bers.y + bers.yi;
-            bers.diff = bers.diff + (2 * (bers.dy - bers.dx));
+			bers.y = bers.y + bers.yi;
+			bers.diff = bers.diff + (2 * (bers.dy - bers.dx));
 		}
 		else
-            bers.diff = bers.diff + 2 * bers.dy;
+			bers.diff = bers.diff + 2 * bers.dy;
 	}
- }
+}
 
-// x0, y0, x1, y1, color)
-void plotLineHigh(int *x_ys, void *addr, int *img_data)
- {
-	// int dx;
-	// int dy;
-	// int xi;
-	// int D;
-	// int	y;
-	// int x;
-	b_vars bers;
+void	plot_line_high(int *x_ys, void *addr, int *img_data)
+{
+	t_b_vars	bers;
 
-	bers.dx = x_ys[2] - x_ys[0];
-    bers.dy = x_ys[3] - x_ys[1];
-    bers.xi = 1;
-    if (bers.dx < 0)
-    {   bers.xi = -1;
-        bers.dx = -bers.dx;
-    }
-    bers.diff = (2 * bers.dx) - bers.dy;
-    bers.x = x_ys[0];
+	bers = fill_bers_struct(x_ys);
+	if (bers.dx < 0)
+	{
+		bers.xi = -1;
+		bers.dx = -bers.dx;
+	}
+	bers.diff = (2 * bers.dx) - bers.dy;
+	bers.x = x_ys[0];
 	bers.y = x_ys[1] - 1;
 	while (++bers.y < x_ys[3])
 	{
-		//ft_printf(" y0 = %d, y1 = %d\n", y, x_ys[3]);
 		x_ys[0] = bers.x;
 		x_ys[1] = bers.y;
-        my_mlx_pixel_put(addr, x_ys, img_data);
-        if (bers.diff > 0)
+		my_mlx_pixel_put(addr, x_ys, img_data);
+		if (bers.diff > 0)
 		{
-            bers.x = bers.x + bers.xi;
-            bers.diff = bers.diff + (2 * (bers.dx - bers.dy));
+			bers.x = bers.x + bers.xi;
+			bers.diff = bers.diff + (2 * (bers.dx - bers.dy));
 		}
 		else
-            bers.diff = bers.diff + 2 * bers.dx;
+			bers.diff = bers.diff + 2 * bers.dx;
 	}
- }
-void connect_dots(int *x_ys, void *addr, int *img_data)
+}
+
+void	connect_dots(int *x_ys, void *addr, int *img_data)
 {
-    if (abs(x_ys[3] - x_ys[1]) < abs(x_ys[2] - x_ys[0]))
-    {   
+	if (abs(x_ys[3] - x_ys[1]) < abs(x_ys[2] - x_ys[0]))
+	{
 		if (x_ys[0] > x_ys[2])
 		{
 			ft_swap(&x_ys[0], &x_ys[2]);
 			ft_swap(&x_ys[1], &x_ys[3]);
-            plotLineLow(x_ys, addr, img_data);
+			plot_line_low(x_ys, addr, img_data);
 		}
 		else
-            plotLineLow(x_ys, addr, img_data);
+			plot_line_low(x_ys, addr, img_data);
 	}
-    else
+	else
 	{
-        if (x_ys[1] > x_ys[3])
+		if (x_ys[1] > x_ys[3])
 		{
 			ft_swap(&x_ys[0], &x_ys[2]);
 			ft_swap(&x_ys[1], &x_ys[3]);
-            plotLineHigh(x_ys, addr, img_data);
+			plot_line_high(x_ys, addr, img_data);
 		}
 		else
-			plotLineHigh(x_ys, addr, img_data);   
+			plot_line_high(x_ys, addr, img_data);
 	}
-}
-
-void ft_swap(int *a, int *b)
-{
-	int	tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
 }
 
 int	ft_atox(char *n)

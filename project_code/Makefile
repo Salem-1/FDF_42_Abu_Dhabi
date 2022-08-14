@@ -1,5 +1,5 @@
 NAME =	fdf
-SRC	=	parse_me.c projection.c bersenham.c mlx_operations.c  utils_fdf.c main.c
+SRC	=	parse_me.c projection.c bersenham.c mlx_operations.c  utils_fdf.c main.c more_utils.c
 
 LDIR = mlx
 CFLAGS =  -Wall -Wextra -Werror -Ofast
@@ -11,13 +11,14 @@ LIBS = libft/libft.a printf/libftprintf.a ./libmlx.dylib
 
 all: $(NAME)
 		 
-$(NAME): $(OBJ)
+$(NAME): comp_libs $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(LIBS)  -framework OpenGL -framework AppKit
+
+comp_libs:
 	make -C ./mlx
 	make -C libft/.
 	make -C printf/.
 	mv mlx/libmlx.dylib libmlx.dylib 
-	$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(LIBS)  -framework OpenGL -framework AppKit
-
 
 clean:
 	rm -f *.o
@@ -35,13 +36,13 @@ fclean: clean
 	
 re: fclean all
 
-sand:	
-	gcc -Lmlx -lmlx -framework OpenGL -framework AppKit open_window.c
-	./a.out
+# sand:	
+# 	gcc -Lmlx -lmlx -framework OpenGL -framework AppKit open_window.c
+# 	./a.out
 
-image:	
-	gcc -Lmlx -lmlx -framework OpenGL -framework AppKit image.c
-	./a.out
+# image:	
+# 	gcc -Lmlx -lmlx -framework OpenGL -framework AppKit image.c
+# 	./a.out
 
-test: re
-	./fdf test_maps/42.fdf
+# test: re
+# 	./fdf test_maps/42.fdf
