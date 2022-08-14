@@ -1,57 +1,30 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_fdf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 08:35:08 by ahsalem           #+#    #+#             */
+/*   Updated: 2022/08/14 08:52:27 by ahsalem          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fdf.h"
 
-
-int	scale_ratio(n_lines)
-{
-	if(n_lines < 35)
-		return (35);
-	else if(n_lines < 70)
-		return (10);
-	else if(n_lines <= 150)
-		return (5);
-	else if (n_lines < 201)
-		return (2);
-	else 
-		return (1);
-}
-/*
-handling the outliar maps that has small n_lines with large z, that was causing segfautl.
-*/
-void scale_map(int ***map,int n_lines)
+void	scale_map(int ***map, int n_lines)
 {
 	int	i;
-	int	k;
 	int	scaler;
-	int check_z;
+	int	check_z;
 	int	tmp;
+	int	k;
 
-	tmp = 0;
-	i = -1;
-	k = -1;
-	scaler = 0;
 	check_z = 0;
-	while (++i < n_lines)
-	{
-		while (map[i][++k] != NULL && n_lines <= 60)
-			check_z += abs(map[i][k][2]);
-		k  = -1;
-		check_z /= n_lines;
-		if(check_z > tmp)
-			tmp = check_z;
-		else	
-			check_z = tmp;	
-		if (check_z > 20)
-			scaler = 9;
-		else if (check_z >= 10)
-			scaler = 13;
-		else if (check_z >= 6)
-			scaler = 15;
-		else
-			scaler = scale_ratio(n_lines);
-	}
 	i = -1;
+	tmp = 0;
+	k = -1;
+	scaler = get_scaler(map, n_lines, check_z, tmp);
 	while (++i < n_lines)
 	{
 		while (map[i][++k] != NULL)
@@ -60,20 +33,71 @@ void scale_map(int ***map,int n_lines)
 			map[i][k][1] *= scaler;
 			map[i][k][2] *= scaler;
 		}
-		k  = -1;
+		k = -1;
 	}
 }
 
-void free_split(char **split)
+int	scale_ratio(int n_lines, int flag, int check_z)
+{
+	if (flag == 0)
+	{
+		if (n_lines < 35)
+			return (35);
+		else if (n_lines < 70)
+			return (10);
+		else if (n_lines <= 150)
+			return (5);
+		else if (n_lines < 201)
+			return (2);
+		else
+			return (1);
+	}
+	else
+	{
+		if (check_z > 20)
+			return (9);
+		else if (check_z >= 10)
+			return (13);
+		else if (check_z >= 6)
+			return (15);
+		else
+			return (scale_ratio(n_lines, 0, 0));
+	}
+}
+
+int	get_scaler(int ***map, int n_lines, int check_z, int tmp)
+{
+	int	i;
+	int	k;
+	int	scaler;
+
+	i = -1;
+	k = -1;
+	while (++i < n_lines)
+	{
+		while (map[i][++k] != NULL && n_lines <= 60)
+			check_z += abs(map[i][k][2]);
+		k = -1;
+		check_z /= n_lines;
+		if (check_z > tmp)
+			tmp = check_z;
+		else
+			check_z = tmp;
+		scaler = scale_ratio(n_lines, 1, check_z);
+	}
+	return (scaler);
+}
+
+void	free_split(char **split)
 {
 	int	i;
 
 	i = -1;
-	while(split[++i])
+	while (split[++i])
 	{
 		free(split[i]);
 	}
-	free(split);	
+	free(split);
 }
 
 void	clean_map(int ***map)
@@ -90,34 +114,5 @@ void	clean_map(int ***map)
 		free(map[i]);
 		j = -1;
 	}
-		free(map[i]);
-}
-
-int	ft_atox(char *n)
-{
-	int	len;
-	int	result;
-
-	if (n == NULL)
-		return (0x00ffffff);
-	len = 0;
-	result = 0;
-	if (*n == '0')
-	{
-		n++;
-		if (*n == 'x')
-			n++;
-	}
-	else
-		return (0);
-	len = ft_strlen(n);
-	while (*(n))
-	{
-		*n = ft_tolower(*n);
-		if (ft_isdigit(*n))
-			result += ((*n++) - '0') * (pow(16, --len));
-		else
-			result += ((*n++) - 'a' + 10) * (pow(16, --len));
-	}
-	return (result);
+	free(map[i]);
 }

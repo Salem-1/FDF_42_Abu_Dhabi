@@ -12,7 +12,7 @@ void mlx_operations(int ***map)
 	void *addr;
 	
 	mlx = mlx_init();
-	mlx_window = mlx_new_window(mlx, 1900, 1080, "Hello World");
+	mlx_window = mlx_new_window(mlx, 1900, 1080, "fdf");
 	img = mlx_new_image(mlx, 1900, 1080);
 	vars.mlx = mlx;
 	vars.win = mlx_window;						
