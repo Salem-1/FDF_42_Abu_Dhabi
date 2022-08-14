@@ -42,7 +42,6 @@ void scale_map(int ***map,int n_lines)
 			tmp = check_z;
 		else	
 			check_z = tmp;	
-	//ft_printf("check_z = %d, n_lines = %d\n",check_z, n_lines );
 		if (check_z > 20)
 			scaler = 9;
 		else if (check_z >= 10)
@@ -53,7 +52,6 @@ void scale_map(int ***map,int n_lines)
 			scaler = scale_ratio(n_lines);
 	}
 	i = -1;
-	ft_printf("scaler = %d, check_z = %d\n", scaler, check_z);
 	while (++i < n_lines)
 	{
 		while (map[i][++k] != NULL)
@@ -64,5 +62,62 @@ void scale_map(int ***map,int n_lines)
 		}
 		k  = -1;
 	}
+}
 
+void free_split(char **split)
+{
+	int	i;
+
+	i = -1;
+	while(split[++i])
+	{
+		free(split[i]);
+	}
+	free(split);	
+}
+
+void	clean_map(int ***map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (map[++i])
+	{
+		while (map[i][++j])
+			free(map[i][j]);
+		free(map[i]);
+		j = -1;
+	}
+		free(map[i]);
+}
+
+int	ft_atox(char *n)
+{
+	int	len;
+	int	result;
+
+	if (n == NULL)
+		return (0x00ffffff);
+	len = 0;
+	result = 0;
+	if (*n == '0')
+	{
+		n++;
+		if (*n == 'x')
+			n++;
+	}
+	else
+		return (0);
+	len = ft_strlen(n);
+	while (*(n))
+	{
+		*n = ft_tolower(*n);
+		if (ft_isdigit(*n))
+			result += ((*n++) - '0') * (pow(16, --len));
+		else
+			result += ((*n++) - 'a' + 10) * (pow(16, --len));
+	}
+	return (result);
 }

@@ -6,85 +6,85 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:12 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/13 17:54:57 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/13 20:22:52 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-/*
-	close files and clean map in case of any error
 
-*/
-int ***parse_me(int fd, int n_lines)
+int	***parse_me(int fd, int n_lines)
 {
-	char	*one_line;
-	int		***map;
-	int		i;
-	char 	**split_result;
-	int		j;
-	char	**splitted_split_result;
-	int		k;
-	int		split_count;
+	int	***map;
+	int	i;
 
-	k = -1;
-	j = -1;
-	i  = -1;
-	int scale_constant = 1;
-	map  = malloc(sizeof(int **) * (n_lines + 1));
+	i = -1;
+	map = malloc(sizeof(int **) * (n_lines + 1));
 	if (!map)
 		return (NULL);
 	while (++i < n_lines)
 	{
-		one_line = get_next_line(fd);
-		if (one_line == NULL)
-		{
-			ft_printf("end of file shouldn't reach this point, inside pars_me() n_lines = %d \n", n_lines);
-			return (NULL);
-		}
-		split_result = ft_split(one_line, ' ');
-		split_count =  splitted_counter(split_result );
-		//allocating for one full line data inside map[i]
-		map[i] = malloc(sizeof(int *) * (split_count + 1));
-		if (map[i] == NULL)
-			return (NULL);
-		while (split_result[++j] != NULL)
-		{
-			map[i][++k] =  malloc(sizeof(int) * 4);
-				// if (map[i][j] == NULL)
-				// 	return (NULL);
-			splitted_split_result = ft_split(split_result[j], ',');
-			//ft_printf("splitted result = %d\n", ft_atoi(splitted_split_result[0]));
-			map[i][k][0] = k * scale_constant;
-			map[i][k][1] = i * scale_constant;
-			map[i][k][2] = -1 * (ft_atoi(splitted_split_result[0]) * scale_constant ) ;  //z_axis which is the value
-			map[i][k][3] =  ft_atox(splitted_split_result[1]);
-		 	//map[i][k][3] =  0xfedf0000; //ft_atox(splitted_split_result[1])the split rsult I will set it for 255 the defualt white for now split(split_result[0][++j], ',')[1]
-			free_split(splitted_split_result);
-		}
-		map[i][k] = NULL;
-		k  = -1;
-		free_split(split_result);
-		j = -1;
+		if (!fill_map(fd, map, i))
+			return (0);
 	}
 	map[i] = NULL;
 	return (map);
 }
 
-void free_split(char **split)
+int	fill_map(int fd, int ***map, int i)
 {
-	int	i;
+	char	*one_line;
+	char	**split_result;
+	int		split_count;
+	int		counter[3];
 
-	i = -1;
-	while(split[++i])
+	counter[0] = i;
+	counter[1] = -1;
+	counter[2] = -1;
+	one_line = get_next_line(fd);
+	if (one_line == NULL)
+		return (0);
+	split_result = ft_split(one_line, ' ');
+	split_count = splitted_counter(split_result);
+	map[counter[0]] = malloc(sizeof(int *) * (split_count + 1));
+	if (map[counter[0]] == NULL)
+		return (0);
+	while (split_result[++counter[1]] != NULL)
 	{
-		free(split[i]);
+		counter[2] = fill_map_helper(map, (int *)counter, split_result);
+		if (counter[2] == -2)
+			return (0);
 	}
-	free(split);	
+	map[counter[0]][counter[2]] = NULL;
+	free_split(split_result);
+	return (1);
 }
 
-int get_line_number(char *file_name)
+int	fill_map_helper(int ***map, int *counter, char **split_result)
 {
-	char *line;
+	char	**splitted_split_result;
+	int		i;
+	int		j;
+	int		k;
+
+	i = counter[0];
+	j = counter[1];
+	k = counter[2];
+	splitted_split_result = NULL;
+	map[i][++k] = malloc(sizeof(int) * 4);
+	if (map[i][k] == NULL)
+		return (-2);
+	splitted_split_result = ft_split(split_result[j], ',');
+	map[i][k][0] = k;
+	map[i][k][1] = i;
+	map[i][k][2] = -1 * ft_atoi(splitted_split_result[0]);
+	map[i][k][3] = ft_atox(splitted_split_result[1]);
+	free_split(splitted_split_result);
+	return (k);
+}
+
+int	get_line_number(char *file_name)
+{
+	char	*line;
 	int		fd;
 	int		i;
 
@@ -97,13 +97,13 @@ int get_line_number(char *file_name)
 		return (0);
 	}
 	line = get_next_line(fd);
-	while(line)
+	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
 		i++;
 	}	
-	if(close(fd) == -1)
+	if (close(fd) == -1)
 		return (0);
 	return (i);
 }
@@ -117,70 +117,3 @@ int	splitted_counter(char **split_result)
 		;
 	return (i);
 }
-
-int ft_atox(char *n)
-{
-	if (n == NULL)
-		return (0x00ffffff);
-	int	len;
-	int	result;
-
-	len = 0;
-	result = 0;
-	if (*n == '0')
-	{
-		n++;
-		if (*n == 'x')
-			n++;
-	}
-	else
-		return (0);
-	len = ft_strlen(n);
-    while (*(n))
-	{
-		*n = ft_tolower(*n);
-        if (ft_isdigit(*n))
-			result +=  ((*n++) - '0') *  (pow(16, --len));
-		else
-			result +=  ((*n++) - 'a' + 10) *  (pow(16, --len));
-    }
-	return (result);
-}
-
-
-void clean_map(int ***map)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	j = -1;
-	
-	while (map[++i])
-	{
-		while (map[i][++j])
-		{
-			free(map[i][j]);
-		}
-		free(map[i]);
-		j = -1;
-	}
-		free(map[i]);
-	//	ft_printf("map is clean\n");
-}
-	// //ft_printf("number of lines = %d\n", n_lines);
-	// 	one_line = get_next_line(fd);
-	// 	split_result = ft_split(one_line, ' ');
-	// while (++i < n_lines)
-	// {
-	// 	if (one_line == NULL)
-	// 		break;
-	// 	while (split_result[0][++j] != NULL)
-	// 	{
-	// 		map[i] = &split_result[0];
-	// 	}
-	// 	free(split_result);
-	// 	j = -1
-	// 	free(one_line);
-	// }
-	// map[i + 1] = NULL;
