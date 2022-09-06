@@ -6,15 +6,14 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:51:08 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/14 11:15:14 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/14 13:09:03 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# include "printf/ft_printf.h"
 # include "libft/libft.h"
-# include "gnl/get_next_line.h"
+# include "libft/get_next_line.h"
 # include <unistd.h>
 # include <math.h>
 # include "mlx/mlx.h"

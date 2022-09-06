@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:16 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/13 19:49:19 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/14 13:08:04 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,27 @@ int	main(int argc, char **argv)
 }
 
 /*
+#incldue <stdio.h>
 void visualize_map(int ***map)
 {
-	ft_printf("[\n");
+	printf("[\n");
 	for (int i = 0; map[i]; i++)
 	{
-		ft_printf(" [");
+		printf(" [");
 		for (int j = 0; map[i][j]; j++)
 		{
-			ft_printf("(");
+			printf("(");
 			for (int k = 0; k < 4; k++)
 			{
 				if (k != 3)
-					ft_printf("%d, ", map[i][j][k]);
+					printf("%d, ", map[i][j][k]);
 				else
-					ft_printf("%d", map[i][j][k]);
+					printf("%d", map[i][j][k]);
 
 			}
-			ft_printf("), ");
+			printf("), ");
 		}
-		ft_printf("]\n");
+		printf("]\n");
 	}
-	ft_printf("]\n");
+	printf("]\n");
 }*/

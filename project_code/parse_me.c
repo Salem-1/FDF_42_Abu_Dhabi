@@ -6,7 +6,7 @@
 /*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 11:48:12 by ahsalem           #+#    #+#             */
-/*   Updated: 2022/08/13 20:22:52 by ahsalem          ###   ########.fr       */
+/*   Updated: 2022/08/14 13:08:26 by ahsalem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ int	get_line_number(char *file_name)
 	line = NULL;
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-	{
-		ft_printf("Bad file \n");
 		return (0);
-	}
 	line = get_next_line(fd);
 	while (line)
 	{
